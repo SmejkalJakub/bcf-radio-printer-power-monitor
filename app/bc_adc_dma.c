@@ -3,7 +3,7 @@
 
 typedef struct
 {
-    uint8_t *buffer;
+    uint16_t *buffer;
     size_t buffer_size;
     bc_adc_channel_t adc_channel;
     bool circular;
@@ -21,7 +21,7 @@ static void _bc_adc_dma_adc_init(void);
 static void _bc_adc_dma_tim6_init(uint16_t prescaler, uint16_t autoreload);
 static void _bc_adc_dma_dma_init(void);
 
-void bc_adc_dma_init(uint8_t *buffer, size_t buffer_size)
+void bc_adc_dma_init(uint16_t *buffer, size_t buffer_size)
 {
     memset(&_bc_adc_dma, 0, sizeof(_bc_adc_dma));
 
@@ -166,8 +166,8 @@ static void _bc_adc_dma_dma_init(void)
     {
         .request = BC_DMA_REQUEST_0,
         .direction = BC_DMA_DIRECTION_TO_RAM,
-        .data_size_memory = BC_DMA_SIZE_1,
-        .data_size_peripheral = BC_DMA_SIZE_1,
+        .data_size_memory = BC_DMA_SIZE_2,
+        .data_size_peripheral = BC_DMA_SIZE_2,
         .mode = BC_DMA_MODE_CIRCULAR,
         .address_peripheral = (void *)&ADC1->DR,
         .priority = BC_DMA_PRIORITY_HIGH
